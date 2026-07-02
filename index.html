@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MovieFlix</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+
+<nav>
+
+    <div class="logo">
+
+        Movie<span>Flix</span>
+
+    </div>
+
+    <ul>
+
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Movies</a></li>
+        <li><a href="#">Series</a></li>
+        <li><a href="#">My List</a></li>
+
+    </ul>
+
+    <div class="nav-right">
+
+        <input
+        type="text"
+        id="searchBox"
+        placeholder="Search movies...">
+
+        <button id="searchBtn">
+
+            🔍
+
+        </button>
+
+    </div>
+
+</nav>
+
+<!-- Hero Banner -->
+
+<header class="hero">
+
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+
+        <h1 id="featuredTitle">
+
+            Featured Movie
+
+        </h1>
+
+        <p id="featuredDescription">
+
+            Welcome to MovieFlix.
+            Watch your favorite movies directly from Google Drive.
+
+        </p>
+
+        <div class="hero-buttons">
+
+            <button id="watchNow">
+
+                ▶ Watch Now
+
+            </button>
+
+            <button id="infoBtn">
+
+                ℹ More Info
+
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- Categories -->
+
+<section class="category">
+
+    <h2>Trending</h2>
+
+    <div class="movie-row" id="trending">
+
+    </div>
+
+</section>
+
+<section class="category">
+
+    <h2>Action</h2>
+
+    <div class="movie-row" id="action">
+
+    </div>
+
+</section>
+
+<section class="category">
+
+    <h2>Comedy</h2>
+
+    <div class="movie-row" id="comedy">
+
+    </div>
+
+</section>
+
+<section class="category">
+
+    <h2>Horror</h2>
+
+    <div class="movie-row" id="horror">
+
+    </div>
+
+</section>
+
+<section class="category">
+
+    <h2>Animation</h2>
+
+    <div class="movie-row" id="animation">
+
+    </div>
+
+</section>
+
+<!-- Player -->
+
+<div id="playerContainer">
+
+    <div class="playerBox">
+
+        <span id="closePlayer">
+
+            ✖
+
+        </span>
+
+        <iframe
+
+            id="moviePlayer"
+
+            src=""
+
+            allowfullscreen
+
+            frameborder="0">
+
+        </iframe>
+
+    </div>
+
+</div>
+
+<!-- Movie Info -->
+
+<div id="movieInfo">
+
+    <div class="infoBox">
+
+        <span id="closeInfo">
+
+            ✖
+
+        </span>
+
+        <img
+        id="infoPoster"
+        src=""
+        alt="Movie Poster">
+
+        <div class="details">
+
+            <h2 id="infoTitle">
+
+            </h2>
+
+            <p id="infoYear">
+
+            </p>
+
+            <p id="infoGenre">
+
+            </p>
+
+            <p id="infoDescription">
+
+            </p>
+
+            <button id="playMovie">
+
+                ▶ Play Movie
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Footer -->
+
+<footer>
+
+    <h3>
+
+        MovieFlix
+
+    </h3>
+
+    <p>
+
+        Your personal streaming website.
+
+    </p>
+
+    <p>
+
+        Powered by GitHub Pages + Google Drive
+
+    </p>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

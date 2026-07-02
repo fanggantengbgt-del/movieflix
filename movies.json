@@ -1,10 +1,12 @@
-{
-  "title": "Ice Pocalypse",
-  "year": "2020",
-  "genre": "Action",
-  "category": "Trending",
-  "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDZjyXwLvYB61kkbNeuyGTKjGWaB3tDEi2NTR72Rq6W7lhygMcJrDWi7Y&s=10",
-  "banner": "https://i.ytimg.com/vi/YMoeFP1vIgs/maxresdefault.jpg",
-  "description": "A frozen world fights for survival.",
-  "driveID": "13IW5Zz1Yu5dg3GXPa7_Qnv-xmNbgAIsV"
-}
+[
+  {
+    "title": "Ice Pocalypse",
+    "year": "2020",
+    "genre": "Action",
+    "category": "Trending",
+    "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDZjyXwLvYB61kkbNeuyGTKjGWaB3tDEi2NTR72Rq6W7lhygMcJrDWi7Y&s=10",
+    "banner": "https://i.ytimg.com/vi/YMoeFP1vIgs/maxresdefault.jpg",
+    "description": "A frozen world fights for survival.",
+    "driveID": "13IW5Zz1Yu5dg3GXPa7_Qnv-xmNbgAIsV"
+  }
+]

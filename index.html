@@ -1,254 +1,467 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>MovieFlix</title>
-
-    <link rel="icon" type="image/png" href="favicon.png">
-
-    <link rel="stylesheet" href="style.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    <title>TubePlay</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: radial-gradient(circle at top, #242424 0%, #0d0d0d 45%, #050505 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        /* HEADER */
+        header {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+            background: rgba(10,10,10,.75);
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        .logo span {
+            color: #ff0033;
+        }
+        .status {
+            font-size: 13px;
+            color: #aaa;
+        }
+        /* MAIN */
+        main {
+            width: 92%;
+            max-width: 1100px;
+            margin: 45px auto;
+        }
+        .hero {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .hero h1 {
+            font-size: clamp(32px, 6vw, 58px);
+            line-height: 1;
+            margin-bottom: 12px;
+            letter-spacing: -2px;
+        }
+        .hero h1 span {
+            color: #ff0033;
+        }
+        .hero p {
+            color: #999;
+            font-size: 15px;
+        }
+        /* SEARCH */
+        .search-box {
+            display: flex;
+            gap: 10px;
+            max-width: 850px;
+            margin: 0 auto 35px;
+            background: rgba(255,255,255,.05);
+            padding: 8px;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 16px;
+        }
+        .search-box input {
+            flex: 1;
+            min-width: 0;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 13px 15px;
+            font-size: 15px;
+        }
+        .search-box input::placeholder {
+            color: #777;
+        }
+        .play-btn {
+            border: none;
+            background: #ff0033;
+            color: white;
+            font-weight: bold;
+            padding: 0 25px;
+            border-radius: 11px;
+            cursor: pointer;
+            transition: .2s;
+        }
+        .play-btn:hover {
+            background: #ff1748;
+            transform: scale(1.02);
+        }
+        /* VIDEO */
+        .video-card {
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.08);
+            padding: 12px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,.35);
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        /* PLACEHOLDER */
+        .placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: linear-gradient(135deg, #181818, #090909);
+            text-align: center;
+            padding: 20px;
+        }
+        .placeholder-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+        .placeholder h2 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            color: #777;
+            font-size: 14px;
+        }
+        /* VIDEO INFO */
+        .video-info {
+            padding: 18px 5px 8px;
+            display: none;
+        }
+        .video-info h2 {
+            font-size: 20px;
+            margin-bottom: 7px;
+        }
+        .video-info p {
+            color: #888;
+            font-size: 13px;
+        }
+        /* RECENT */
+        .recent-section {
+            margin-top: 45px;
+        }
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+        .section-title h2 {
+            font-size: 20px;
+        }
+        .clear-btn {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .clear-btn:hover {
+            color: #ff0033;
+        }
+        .recent-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+        }
+        .recent-item {
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 13px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: .2s;
+        }
+        .recent-item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255,0,51,.5);
+        }
+        .recent-thumb {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            display: block;
+        }
+        .recent-title {
+            padding: 11px;
+            font-size: 13px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        /* ERROR */
+        .error {
+            max-width: 850px;
+            margin: -20px auto 25px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            background: rgba(255,0,51,.12);
+            border: 1px solid rgba(255,0,51,.3);
+            color: #ff6685;
+            display: none;
+            font-size: 14px;
+        }
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 45px 20px;
+            color: #555;
+            font-size: 12px;
+        }
+        /* MOBILE */
+        @media (max-width: 600px) {
+            header {
+                padding: 0 20px;
+            }
+            .status {
+                display: none;
+            }
+            main {
+                width: 94%;
+                margin-top: 30px;
+            }
+            .search-box {
+                flex-direction: column;
+                background: rgba(255,255,255,.04);
+            }
+            .play-btn {
+                height: 48px;
+            }
+            .video-card {
+                padding: 7px;
+                border-radius: 15px;
+            }
+            .video-container {
+                border-radius: 10px;
+            }
+            .recent-list {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
 </head>
-
 <body>
-
-<!-- Navigation -->
-
-<nav>
-
-    <div class="logo">
-
-        Movie<span>Flix</span>
-
-    </div>
-
-    <ul>
-
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Movies</a></li>
-        <li><a href="#">Series</a></li>
-        <li><a href="#">My List</a></li>
-
-    </ul>
-
-    <div class="nav-right">
-
-        <input
-        type="text"
-        id="searchBox"
-        placeholder="Search movies...">
-
-        <button id="searchBtn">
-
-            🔍
-
-        </button>
-
-    </div>
-
-</nav>
-
-<!-- Hero Banner -->
-
-<header class="hero">
-
-    <div class="overlay"></div>
-
-    <div class="hero-content">
-
-        <h1 id="featuredTitle">
-
-            Featured Movie
-
-        </h1>
-
-        <p id="featuredDescription">
-
-            Welcome to MovieFlix.
-            Watch your favorite movies directly from Google Drive.
-
-        </p>
-
-        <div class="hero-buttons">
-
-            <button id="watchNow">
-
-                ▶ Watch Now
-
-            </button>
-
-            <button id="infoBtn">
-
-                ℹ More Info
-
-            </button>
-
+    <header>
+        <div class="logo"> Tube<span>Play</span> </div>
+        <div class="status"> YouTube player </div>
+    </header>
+    <main>
+        <section class="hero">
+            <h1>Watch <span>anywhere.</span></h1>
+            <p>Paste a YouTube link and play it directly on this website.</p>
+        </section>
+        <!-- SEARCH -->
+        <div class="search-box">
+            <input id="youtubeUrl" type="text" autocomplete="off" placeholder="Paste YouTube link here..." onkeydown="handleEnter(event)">
+            <button class="play-btn" onclick="loadVideo()"> ▶ PLAY </button>
         </div>
-
-    </div>
-
-</header>
-
-<!-- Categories -->
-
-<section class="category">
-
-    <h2>Trending</h2>
-
-    <div class="movie-row" id="trending">
-
-    </div>
-
-</section>
-
-<section class="category">
-
-    <h2>Action</h2>
-
-    <div class="movie-row" id="action">
-
-    </div>
-
-</section>
-
-<section class="category">
-
-    <h2>Comedy</h2>
-
-    <div class="movie-row" id="comedy">
-
-    </div>
-
-</section>
-
-<section class="category">
-
-    <h2>Horror</h2>
-
-    <div class="movie-row" id="horror">
-
-    </div>
-
-</section>
-
-<section class="category">
-
-    <h2>Animation</h2>
-
-    <div class="movie-row" id="animation">
-
-    </div>
-
-</section>
-
-<!-- Player -->
-
-<div id="playerContainer">
-
-    <div class="playerBox">
-
-        <span id="closePlayer">
-
-            ✖
-
-        </span>
-
-        <iframe
-
-            id="moviePlayer"
-
-            src=""
-
-            allowfullscreen
-
-            frameborder="0">
-
-        </iframe>
-
-    </div>
-
-</div>
-
-<!-- Movie Info -->
-
-<div id="movieInfo">
-
-    <div class="infoBox">
-
-        <span id="closeInfo">
-
-            ✖
-
-        </span>
-
-        <img
-        id="infoPoster"
-        src=""
-        alt="Movie Poster">
-
-        <div class="details">
-
-            <h2 id="infoTitle">
-
-            </h2>
-
-            <p id="infoYear">
-
-            </p>
-
-            <p id="infoGenre">
-
-            </p>
-
-            <p id="infoDescription">
-
-            </p>
-
-            <button id="playMovie">
-
-                ▶ Play Movie
-
-            </button>
-
+        <!-- ERROR -->
+        <div id="error" class="error"></div>
+        <!-- VIDEO -->
+        <div class="video-card">
+            <div class="video-container">
+                <div class="placeholder" id="placeholder">
+                    <div class="placeholder-icon">▶</div>
+                    <h2>Your video will appear here</h2>
+                    <p>Paste a YouTube URL above to start watching.</p>
+                </div>
+                <iframe id="player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <!-- UPDATED VIDEO INFO SECTION WITH PIP BUTTON -->
+            <div class="video-info" id="videoInfo">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;">
+                    <div>
+                        <h2 id="videoTitle"> YouTube Video </h2>
+                        <p id="videoId"></p>
+                    </div>
+                    <button id="pipButton" onclick="togglePictureInPicture()" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: white; padding: 10px 16px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">
+                        📺 Picture-in-Picture
+                    </button>
+                </div>
+            </div>
         </div>
+        <!-- RECENT -->
+        <section class="recent-section">
+            <div class="section-title">
+                <h2>Recently Played</h2>
+                <button class="clear-btn" onclick="clearHistory()"> Clear history </button>
+            </div>
+            <div class="recent-list" id="recentList"></div>
+        </section>
+    </main>
+    <footer> TubePlay • YouTube embedded player </footer>
+    <script>
+        const input = document.getElementById("youtubeUrl");
+        const player = document.getElementById("player");
+        const placeholder = document.getElementById("placeholder");
+        const error = document.getElementById("error");
+        const videoInfo = document.getElementById("videoInfo");
+        const videoTitle = document.getElementById("videoTitle");
+        const videoIdText = document.getElementById("videoId");
 
-    </div>
+Use code with caution.
+const recentList = document.getElementById("recentList");
+const pipButton = document.getElementById("pipButton");
+// Hide PiP button immediately if the browser doesn't support the Document PiP API
+if (!('documentPictureInPicture' in window)) {
+pipButton.style.display = 'none';
+}
+/* GET YOUTUBE VIDEO ID */
+function getYouTubeID(url) {
+try {
+const parsed = new URL(url);
+let host = parsed.hostname.replace("www.", "").replace("m.", "");
+if (host === "youtube.com") {
+if (parsed.pathname === "/watch") { return parsed.searchParams.get("v"); }
+if (parsed.pathname.startsWith("/shorts/")) { return parsed.pathname.split("/")[2]?.split("?")[0]; }
+if (parsed.pathname.startsWith("/embed/")) { return parsed.pathname.split("/")[2]?.split("?")[0]; }
+if (parsed.pathname.startsWith("/live/")) { return parsed.pathname.split("/")[2]?.split("?")[0]; }
+}
+if (host === "youtu.be") { return parsed.pathname.substring(1).split("/")[0]; }
+} catch (e) { return null; }
+return null;
+}
+/* LOAD VIDEO */
+function loadVideo() {
+const url = input.value.trim();
+hideError();
+if (!url) {
+showError("Please paste a YouTube video link.");
+return;
+}
+const videoID = getYouTubeID(url);
+if (!videoID) {
+showError("Invalid YouTube link. Please check the URL and try again.");
+return;
+}
+player.src = "youtube.com" + encodeURIComponent(videoID) + "?autoplay=1&rel=0";
+placeholder.style.display = "none";
+videoInfo.style.display = "block";
+videoTitle.textContent = "YouTube Video";
+videoIdText.textContent = "Video ID: " + videoID;
+saveToHistory(videoID);
+loadHistory();
+}
+/* PICTURE IN PICTURE FUNCTIONALITY */
+async function togglePictureInPicture() {
+try {
+if (window.documentPictureInPicture.window) {
+window.documentPictureInPicture.window.close();
+return;
+}
+// Open a floating canvas window matching video aspect ratio
+const pipWindow = await window.documentPictureInPicture.requestWindow({
+width: 640,
+height: 360,
+});
+// Copy parent styles to the PiP window context
+[...document.styleSheets].forEach((styleSheet) => {
+try {
+const cssRules = [...styleSheet.cssRules].map((rule) => rule.cssText).join('');
+const style = document.createElement('style');
+style.textContent = cssRules;
+pipWindow.document.head.appendChild(style);
+} catch (e) {
+const link = document.createElement('link');
+link.rel = 'stylesheet';
+link.href = styleSheet.href;
+pipWindow.document.head.appendChild(link);
+}
+});
+// Teleport the iframe player to the PiP window context
+const container = player.parentElement;
+pipWindow.document.body.appendChild(player);
+pipButton.textContent = "❌ Exit PiP";
+// Listen for window dismissal to return the player back cleanly
+pipWindow.addEventListener("pagehide", () => {
+container.appendChild(player);
+pipButton.textContent = "📺 Picture-in-Picture";
+});
+} catch (err) {
+showError("Picture-in-Picture failed to launch or is unsupported.");
+}
+}
+/* ENTER KEY */
+function handleEnter(event) {
+if (event.key === "Enter") { loadVideo(); }
+}
+/* ERROR */
+function showError(message) {
+error.textContent = message;
+error.style.display = "block";
+}
+function hideError() { error.style.display = "none"; }
+/* HISTORY */
+function getHistory() {
+try { return JSON.parse(localStorage.getItem("tubePlayHistory")) || []; } catch { return []; }
+}
+function saveToHistory(videoID) {
+let history = getHistory();
+history = history.filter(id => id !== videoID);
+history.unshift(videoID);
+history = history.slice(0, 12);
+localStorage.setItem("tubePlayHistory", JSON.stringify(history));
+}
+/* DISPLAY HISTORY */
+function loadHistory() {
+const history = getHistory();
+recentList.innerHTML = "";
+if (history.length === 0) {
+recentList.innerHTML = <p style="color:#666; font-size:13px;">No recently played videos.</p>;
+return;
+}
+history.forEach(videoID => {
+const item = document.createElement("div");
+item.className = "recent-item";
+const thumbnail = document.createElement("img");
+thumbnail.className = "recent-thumb";
+thumbnail.src = "youtube.com" + videoID + "/hqdefault.jpg";
+thumbnail.alt = "YouTube video thumbnail";
+const title = document.createElement("div");
+title.className = "recent-title";
+title.textContent = "YouTube Video • " + videoID;
+item.appendChild(thumbnail);
+item.appendChild(title);
+item.onclick = function () {
+input.value = "youtube.com" + videoID;
+loadVideo();
+window.scrollTo({ top: 0, behavior: "smooth" });
+};
+recentList.appendChild(item);
+});
+}
+/* CLEAR HISTORY */
+function clearHistory() {
+localStorage.removeItem("tubePlayHistory");
+loadHistory();
+}
+/* INITIALIZE */
+loadHistory();
+</script> </body> </html>
 
-</div>
 
-<!-- Footer -->
-
-<footer>
-
-    <h3>
-
-        MovieFlix
-
-    </h3>
-
-    <p>
-
-        Your personal streaming website.
-
-    </p>
-
-    <p>
-
-        Powered by GitHub Pages + Google Drive
-
-    </p>
-
-</footer>
-
-<script src="script.js"></script>
-
-</body>
-</html>
